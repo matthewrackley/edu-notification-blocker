@@ -6,16 +6,11 @@
   "scripts": {
     "get:dependencies": "npm install && cd src/system-app && npm install && cd ../chrome-extension && npm install",
     "extension:build": "cd src/chrome-extension && npm run build",
-    "extension:release": "mkdir -p dist/chrome-extension/dist/ && npm run extension:build && cp src/chrome-extension/manifest.json dist/chrome-extension/manifest.json && cp -r src/chrome-extension/dist/ dist/chrome-extension/dist/",
     "system-app:build": "cd src/system-app && npm run build",
-    "system-app:release": "npm run system-app:build && cp -r src/system-app/dist/ dist/system-app/",
-    "build": "npm run extension:release && npm run system-app:release",
-    "start": "node dist/system-app/server.js",
+    "build": "npm run extension:build && npm run system-app:build",
+    "start": "cd src/system-app/ && node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Matthew Allen Rackley <matthew.rackley17@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "electron": "^41.0.2"
-  }
+  "license": "MIT"
 }

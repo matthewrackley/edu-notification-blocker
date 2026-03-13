@@ -12,9 +12,8 @@ dotenv.config();
  * @property {string} allowedOrigin - The allowed origin for CORS (default: '*').
  */
 export const env = {
-  port: Number(process.env.PORT || 42424),
-  allowedOrigin: process.env.ALLOWED_ORIGIN || '*',
-  installConfigFile: process.env.INSTALL_CONFIG_PATH || `${ process.env.HOME }/.config/edu-notification-blocker/config.json`,
-  installConfig: process.env.INSTALL_CONFIG_DIR || `${ process.env.HOME }/.config/edu-notification-blocker`,
-  contextBridgeAPIKey: process.env.CONTEXT_BRIDGE_API_KEY || "education-notification-blocker-api-key"
+  port: 42424,
+  allowedOrigin: '*',
+  installConfigFile: `${ process.env.HOME }/.config/edu-notification-blocker/config.json`,
+  installConfig: `${ process.env.HOME }/.config/edu-notification-blocker`
 };

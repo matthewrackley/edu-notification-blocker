@@ -37,10 +37,8 @@ module.exports = {
   },
   entry: {
     server: './src/server.ts',
-    app: './src/app.ts',
     'tray-launcher': './src/tray-launcher.ts',
     'electron-tray-main': './src/electron-tray/main.ts',
-    preload: './src/electron-tray/preload.ts',
     controllers: [
       './src/controllers/config.controller.ts',
       './src/controllers/health.controller.ts',
@@ -69,6 +67,10 @@ module.exports = {
   },
   // externalsPresets is AI generated
   externalsPresets: { node: true },
+  // externals is AI generated
+  externals: {
+    electron: 'commonjs electron'
+  },
   // optimization is AI generated
   optimization: {
     minimize: true,
@@ -91,15 +93,11 @@ module.exports = {
     filename: (pathData) => (
       pathData.chunk?.name === 'server'
         ? 'server.js'
-        : pathData.chunk?.name === 'app'
-          ? 'app.js'
-          : pathData.chunk?.name === 'tray-launcher'
-            ? 'tray-launcher.js'
-            : pathData.chunk?.name === 'electron-tray-main'
-              ? 'electron-tray/main.js'
-              : pathData.chunk?.name === 'preload'
-                ? 'electron-tray/preload.js'
-                : 'helpers/[name].js'
+        : pathData.chunk?.name === 'tray-launcher'
+          ? 'tray-launcher.js'
+          : pathData.chunk?.name === 'electron-tray-main'
+            ? 'electron-tray/main.js'
+          : 'helpers/[name].js'
     ),
     path: path.resolve(__dirname, 'dist'),
     clean: true,
