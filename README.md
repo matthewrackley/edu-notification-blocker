@@ -81,7 +81,65 @@ cd src/chrome-extension
 npm run build
 ```
 
-Load the unpacked extension from `src/chrome-extension` in `chrome://extensions`.
+## Install The Extension
+
+To install the extension locally in Chrome or Chromium:
+
+1. Build the extension assets:
+
+```bash
+cd src/chrome-extension
+npm install
+npm run build
+```
+
+1. Open `chrome://extensions` in your browser.
+1. Enable `Developer mode` using the toggle in the extensions page.
+1. Click `Load unpacked`.
+1. Select the `src/chrome-extension` folder from this repository.
+
+The extension manifest points to `dist/background.js`, so the build step must run before loading the unpacked extension.
+
+If you change extension source files later, rebuild with `npm run build` in `src/chrome-extension` and then click the reload action for the extension in `chrome://extensions`.
+
+## Dependencies
+
+These are the packages currently required to build and run the project.
+
+Root workflow:
+
+- `npm`: used by the root scripts to install dependencies and orchestrate both subprojects
+
+System app runtime dependencies in `src/system-app`:
+
+- `express`: HTTP API and local config editor routes
+- `cors`: CORS handling for local HTTP endpoints
+- `dotenv`: environment variable loading from `.env`
+- `electron`: tray process and desktop config window
+- `ws`: websocket server for realtime updates to the extension
+
+System app build dependencies in `src/system-app`:
+
+- `typescript`: TypeScript compilation
+- `tsx`: local development runner for `npm run dev`
+- `webpack`: bundling for the production output
+- `webpack-cli`: webpack command-line runner
+- `ts-loader`: webpack TypeScript loader
+- `terser-webpack-plugin`: production minification
+- `@types/node`
+- `@types/express`
+- `@types/cors`
+- `@types/ws`
+- `@types/electron`
+
+Chrome extension build dependencies in `src/chrome-extension`:
+
+- `typescript`: TypeScript compilation
+- `webpack`: extension bundling
+- `webpack-cli`: webpack command-line runner
+- `ts-loader`: webpack TypeScript loader
+- `terser-webpack-plugin`: production minification
+- `@types/chrome`
 
 ## System App Endpoints
 
