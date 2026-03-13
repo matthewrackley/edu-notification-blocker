@@ -1,0 +1,14 @@
+{
+  "nativeHostName": "com.edu.notification_blocker",
+  "studyPatterns": [
+    "blackboard",
+    "canvas",
+    "instructure",
+    "docs.google.com/document",
+    "docs.google.com/spreadsheets",
+    "office.com",
+    "excel.cloud.microsoft",
+    "genie"
+  ],
+  "cooldownMs": 8000
+}

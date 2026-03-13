@@ -1,0 +1,17 @@
+/**
+ * DISCLAIMER:
+ * I have a general idea of how Chrome extensions work and what the manifest file should look like.
+ * AI was used to completely generate this manifest.json
+ */
+{
+  "manifest_version": 3,
+  "name": "School Watcher",
+  "version": "0.2.0",
+  "description": "Detects study websites and signals a native background app.",
+  "permissions": ["tabs", "alarms"],
+  "background": {
+    "service_worker": "dist/background.js",
+    "type": "module"
+  },
+  "host_permissions": ["http://127.0.0.1:42424/*"]
+}
