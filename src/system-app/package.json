@@ -1,0 +1,38 @@
+{
+  "name": "system-app",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "bundle": "webpack --config webpack.config.js",
+    "build": "tsc && npm run bundle",
+    "start": "node dist/server.js",
+    "start:bundle": "node dist/server.js",
+    "clean": "rm -rf dist"
+  },
+  "author": "Matthew Allen Rackley <matthew.rackley17@gmail.com>",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "electron": "^37.2.5",
+    "express": "^5.2.1",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/electron": "^1.4.38",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.4.0",
+    "@types/ws": "^8.18.1",
+    "terser-webpack-plugin": "^5.3.14",
+    "ts-loader": "^9.5.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^6.0.1"
+  }
+}
