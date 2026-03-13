@@ -2,7 +2,6 @@
   "name": "edu-notification-blocker",
   "version": "1.0.0",
   "description": "Handle notification blocking when visiting school sites",
-  "main": "dist/index.js",
   "scripts": {
     "get:dependencies": "npm install && cd src/system-app && npm install && cd ../chrome-extension && npm install",
     "extension:build": "cd src/chrome-extension && npm run build",

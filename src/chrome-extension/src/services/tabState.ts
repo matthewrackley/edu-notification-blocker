@@ -30,7 +30,7 @@ const matchesExactOrSubdomain = (hostname: string, target: string): boolean => {
 };
 
 const matchesAny = (domain: string, ...domains: string[]): boolean => {
-  return domains.some((domain) => matchesExactOrSubdomain(domain, domain));
+  return domains.some((targetDomain) => matchesExactOrSubdomain(domain, targetDomain));
 };
 
 const getActiveConfig = (): InstallationConfig | null => {

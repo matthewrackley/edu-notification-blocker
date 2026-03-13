@@ -131,7 +131,7 @@ const connectSystemAppWebSocket = async () => {
   }
 
   // Create a new WebSocket connection to the system app's websocket server
-  ws = new WebSocket(`ws://127.0.0.1:${process.env.PORT || 42424}/ws`);
+  ws = new WebSocket('ws://127.0.0.1:42424/ws');
 
   // When websocket connection experiences an `OPEN` event
   ws.addEventListener('open', () => {
@@ -179,8 +179,8 @@ const connectSystemAppWebSocket = async () => {
  * @returns {Promise<void>} Resolves after processing is complete and any necessary events have been sent to the system app.
  */
 const processTab = async (tabId: number, tab: chrome.tabs.Tab): Promise<void> => {
-  // If system app is not currently reachable, or if the tab doesn't have a valid URL or window ID, do nothing since we can't process it properly
-  if (!shouldRun()) return;
+  // If our local flag says "offline", probe health once so tab events are not dropped due to stale websocket state.
+  if (!shouldRun() && !(await syncSystemAppStatus())) return;
   if (typeof tab.windowId !== 'number' || !tab.url) return;
 
   // See if this tabId is already in a previous snapshot.
@@ -330,7 +330,6 @@ chrome.alarms.onAlarm.addListener(async (alarm) => {
 
 // Listen for tab updates, if url or loading status changes, process the tab
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-  if (!shouldRun()) return;
   if (changeInfo.url || changeInfo.status === 'complete') {
     await processTab(tabId, tab);
   }
@@ -338,7 +337,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
 
 // Listen for tab removals, if the removed tab was previously on a watched site, send a LEAVE event
 chrome.tabs.onRemoved.addListener(async (tabId) => {
-  if (!shouldRun()) return;
+  if (!shouldRun() && !(await syncSystemAppStatus())) return;
   const previous = removeTabSnapshot(tabId);
 
   if (previous?.isWatched) {
@@ -352,7 +351,7 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
 
 // Listen for window removals, if any of the removed tabs were previously on a watched site, send a LEAVE event for each
 chrome.windows.onRemoved.addListener(async (windowId) => {
-  if (!shouldRun()) return;
+  if (!shouldRun() && !(await syncSystemAppStatus())) return;
   const removed = removeWindowSnapshots(windowId);
   const hadWatchedTabs = removed.some((entry) => entry.isWatched);
 

@@ -49,7 +49,7 @@ export const getSystemConfig = async (): Promise<InstallationConfig | null> => {
 
 export const postWebsiteEvent = async (payload: WebsiteEventPayload): Promise<void> => {
   try {
-    await fetch(`http://127.0.0.1:42424/websites/event`, {
+    const response = await fetch(`http://127.0.0.1:42424/websites/event`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -57,6 +57,16 @@ export const postWebsiteEvent = async (payload: WebsiteEventPayload): Promise<vo
         timestamp: payload.timestamp ?? Date.now()
       })
     });
+
+    if (!response.ok) {
+      const body = await response.text().catch(() => '');
+      console.error('System app rejected website event:', {
+        status: response.status,
+        statusText: response.statusText,
+        payload,
+        body
+      });
+    }
   } catch (error) {
     console.error('Failed to send website event to system app:', error);
   }
