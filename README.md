@@ -93,10 +93,10 @@ npm install
 npm run build
 ```
 
-1. Open `chrome://extensions` in your browser.
-1. Enable `Developer mode` using the toggle in the extensions page.
-1. Click `Load unpacked`.
-1. Select the `src/chrome-extension` folder from this repository.
+2. Open `chrome://extensions` in your browser.
+3. Enable `Developer mode` using the toggle in the extensions page.
+4. Click `Load unpacked`.
+5. Select the `src/chrome-extension` folder from this repository.
 
 The extension manifest points to `dist/background.js`, so the build step must run before loading the unpacked extension.
 
