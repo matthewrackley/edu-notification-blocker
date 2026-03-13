@@ -8,7 +8,8 @@ This project is split into a Chrome extension and a local system app. The extens
 
 - `src/chrome-extension/`: Manifest V3 extension source.
 - `src/system-app/`: Express server, Electron tray integration, websocket server, and config/session/website logic.
-- `dist/`: built output copied from the extension and system app release steps.
+- `src/chrome-extension/dist/`: built extension assets (generated, not committed).
+- `src/system-app/dist/`: built system app bundle (generated, not committed).
 
 ## Runtime Flow
 
@@ -49,8 +50,8 @@ npm run build
 
 This produces:
 
-- `dist/chrome-extension/`
-- `dist/system-app/`
+- `src/chrome-extension/dist/`
+- `src/system-app/dist/`
 
 Run the built system app:
 
@@ -93,12 +94,12 @@ npm install
 npm run build
 ```
 
-2. Open `chrome://extensions` in your browser.
-3. Enable `Developer mode` using the toggle in the extensions page.
-4. Click `Load unpacked`.
-5. Select the `src/chrome-extension` folder from this repository.
+1. Open `chrome://extensions` in your browser.
+1. Enable `Developer mode` using the toggle in the top-right of the extensions page.
+1. Click `Load unpacked`.
+1. Select the `src/chrome-extension` folder from this repository.
 
-The extension manifest points to `dist/background.js`, so the build step must run before loading the unpacked extension.
+The extension manifest points to `dist/background.js` inside `src/chrome-extension`, so the build step must run before loading the unpacked extension.
 
 If you change extension source files later, rebuild with `npm run build` in `src/chrome-extension` and then click the reload action for the extension in `chrome://extensions`.
 
