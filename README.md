@@ -59,7 +59,7 @@ npm run get:dependencies
 npm run build
 ```
 
-3. Next. we will install the extension locally in Chrome. Follow the instructions in the next section.
+3. Next we will install the extension locally in Chrome. Follow the instructions in the next section.
 
 ## Install The Extension
 
