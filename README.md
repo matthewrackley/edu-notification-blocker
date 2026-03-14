@@ -1,14 +1,30 @@
-# edu-notification-blocker
+# Education Notification Blocker
 
-Local-first notification blocking for study sessions.
+|<center>Property</center>|<center>Value</center>|
+|-|-|
+|<center>**ID**</center>|<center>`edu-notification-blocker`</center>|
 
-This project is split into a Chrome extension and a local system app. The extension watches browser activity and reports matching website events to the system app. The system app owns the installation config, tracks active study-session state, exposes a small local config editor, and runs an Electron tray process.
+## Summary
+
+Website-monitoring application that handles system notification blocking for study sessions while user is on a Linux OS.
+
+This program is split into a `Chrome extension` and a `system app/server`:
+
+- The extension:
+  - Watches browser activity.
+  - Reports matching website events to the system app.
+
+- The system app:
+  - Owns the installation config.
+  - Tracks active study-session state.
+  - Exposes a small local config editor. andH;
+  - Runs an Electron tray process.
 
 ## Project Layout
 
 - `src/chrome-extension/`: Manifest V3 extension source.
-- `src/system-app/`: Express server, Electron tray integration, websocket server, and config/session/website logic.
 - `src/chrome-extension/dist/`: built extension assets (generated, not committed).
+- `src/system-app/`: Express server, Electron integration, websocket server, and config/session/website logic.
 - `src/system-app/dist/`: built system app bundle (generated, not committed).
 
 ## Runtime Flow
