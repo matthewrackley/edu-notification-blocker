@@ -45,79 +45,47 @@ This program is split into a `Chrome extension` and a `system app/server`:
 
 The matching rules live in the system app and are driven by the local installation config.
 
-## Root Scripts
+## Initial Setup
 
-From the repository root:
+1. From the repository root, run this command to install dependencies for both subprojects:
 
 ```bash
 npm run get:dependencies
 ```
 
-Installs root dependencies, then installs dependencies for:
-
-- `src/system-app`
-- `src/chrome-extension`
-
-Build the full project:
+2. Then again from the repository root, run this command to build the full project:
 
 ```bash
 npm run build
 ```
 
-This produces:
-
-- `src/chrome-extension/dist/`
-- `src/system-app/dist/`
-
-Run the built system app:
-
-```bash
-npm run start
-```
-
-## Development
-
-System app development:
-
-```bash
-cd src/system-app
-npm run dev
-```
-
-System app production build:
-
-```bash
-cd src/system-app
-npm run build
-```
-
-Chrome extension build:
-
-```bash
-cd src/chrome-extension
-npm run build
-```
+3. Next. we will install the extension locally in Chrome. Follow the instructions in the next section.
 
 ## Install The Extension
 
-To install the extension locally in Chrome or Chromium:
+To install the extension locally in Chrome:
 
-1. Build the extension assets:
+1. Open `chrome://extensions` in chrome in order to manage extensions.
+2. Enable `Developer mode` using the toggle in the top-right corner of the extensions page.
+![Developer Mode](https://imgur.com/a/JXKvv5F "Toggle Developer Mode On")
+3. Click `Load unpacked` at the top-left of the page.
+![Load Unpacked](https://imgur.com/a/FHEIuJl "Load Unpacked Extension")
+4. Select the `src/chrome-extension` folder from this repository.
+
+### Notes
+
+- The extension manifest points to `dist/background.js` inside `src/chrome-extension`, so the build step MUST run before loading the unpacked extension.
+- If you change extension source files later, rebuild with `npm run build` in `src/chrome-extension` and then click the reload action for the extension in `chrome://extensions`.
+- As soon as you install the extension in Chrome, it will attempt to connect to the system app at `http://127.0.0.1:42424`. If the system app is not running, the extension will keep retrying until it can connect.
+- You must currently manually disable it from the extension page if you want to stop it from retrying.
+
+## Run the application
+
+Simply run the following command to start the system app:
 
 ```bash
-cd src/chrome-extension
-npm install
-npm run build
+npm run start:system-app
 ```
-
-1. Open `chrome://extensions` in your browser.
-1. Enable `Developer mode` using the toggle in the top-right of the extensions page.
-1. Click `Load unpacked`.
-1. Select the `src/chrome-extension` folder from this repository.
-
-The extension manifest points to `dist/background.js` inside `src/chrome-extension`, so the build step must run before loading the unpacked extension.
-
-If you change extension source files later, rebuild with `npm run build` in `src/chrome-extension` and then click the reload action for the extension in `chrome://extensions`.
 
 ## Dependencies
 
